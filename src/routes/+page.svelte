@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
+	import { page } from '$app/stores';
 
 	export let form;
 </script>
@@ -12,6 +13,10 @@
 		<Button type="submit" class="rounded">Create</Button>
 	</form>
 	{#if form}
-		<a class="border-white border-solid border-[1px] p-2" href={`/url/${form.slug}`}>Your link</a>
+		<a
+			class="border-white border-solid border-[1px] p-2"
+			href={`${$page.url.origin}/${form.slug}`}
+			target="_blank">{`${$page.url.origin}/${form.slug}`}</a
+		>
 	{/if}
 </div>
