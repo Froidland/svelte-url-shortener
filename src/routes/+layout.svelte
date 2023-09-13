@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import '../app.css';
+	import type { LayoutServerData } from './$types';
+
+	export let data: LayoutServerData;
 </script>
 
 <div class="container flex flex-col">
@@ -9,7 +12,11 @@
 			<Button class="rounded" href="/">Create</Button>
 		</div>
 		<div>
-			<Button class="rounded">Login</Button>
+			{#if !data.isLoggedIn}
+				<Button class="rounded" href="/api/auth/login/discord">Login</Button>
+			{:else}
+				<Button class="rounded" href="/profile">Profile</Button>
+			{/if}
 		</div>
 	</nav>
 	<slot />
