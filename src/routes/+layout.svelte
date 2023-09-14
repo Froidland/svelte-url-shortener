@@ -13,7 +13,7 @@
 		</div>
 		<div>
 			{#if !data.isLoggedIn}
-				<Button class="rounded" href="/api/auth/login/discord">Login</Button>
+				<Button class="rounded" href="/api/auth/login/discord">Login with Discord</Button>
 			{:else}
 				<Button class="rounded" href="/profile">Profile</Button>
 			{/if}
