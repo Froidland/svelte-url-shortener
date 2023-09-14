@@ -10,6 +10,10 @@
 	export let form;
 </script>
 
+<svelte:head>
+	<title>Simple URL shortener</title>
+</svelte:head>
+
 <div class="flex flex-col items-center gap-4">
 	<h1 class="text-4xl">Create a shortened URL</h1>
 	<form class="flex gap-4" method="POST" action="?/create">
