@@ -23,9 +23,9 @@
 		>
 		<Table.Header class="bg-slate-700">
 			<Table.Row>
-				<Table.Head class="w-[250px]">Slug</Table.Head>
+				<Table.Head class="w-[250px] rounded-tl-xl">Slug</Table.Head>
 				<Table.Head>URL</Table.Head>
-				<Table.Head class="w-[200px]">When</Table.Head>
+				<Table.Head class="w-[200px] rounded-tr-xl">When</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body class="bg-slate-900">
