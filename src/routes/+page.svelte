@@ -14,7 +14,7 @@
 	<title>Simple URL shortener</title>
 </svelte:head>
 
-<div class="flex flex-col items-center gap-4">
+<div class="flex flex-col items-center gap-4 bg-zinc-800 p-3 rounded-xl">
 	<h1 class="text-4xl">Create a shortened URL</h1>
 	<form class="flex gap-4" method="POST" action="?/create">
 		<Input
