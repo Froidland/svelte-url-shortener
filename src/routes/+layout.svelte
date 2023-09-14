@@ -9,7 +9,7 @@
 <div class="container flex flex-col">
 	<nav class="flex justify-between bg-slate-800 p-3 my-3 rounded-xl">
 		<div>
-			<Button class="rounded" href="/">Create</Button>
+			<Button class="rounded" href="/">Home</Button>
 		</div>
 		<div>
 			{#if !data.isLoggedIn}
