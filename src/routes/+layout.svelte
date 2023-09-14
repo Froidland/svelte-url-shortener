@@ -16,6 +16,7 @@
 				<Button class="rounded" href="/api/auth/login/discord">Login with Discord</Button>
 			{:else}
 				<Button class="rounded" href="/profile">Profile</Button>
+				<Button class="rounded" href="/api/auth/logout" variant="destructive">Log out</Button>
 			{/if}
 		</div>
 	</nav>
