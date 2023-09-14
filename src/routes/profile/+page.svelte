@@ -29,12 +29,12 @@
 				<Table.Row>
 					<Table.Head
 						class="w-[250px] py-2 px-4 rounded-tl border-r-[1px] border-zinc-500 border-dotted"
-						><p>Slug</p></Table.Head
+						><span>Slug</span></Table.Head
 					>
 					<Table.Head class="border-r-[1px] py-2 px-4 border-zinc-500 border-dotted"
-						><p>URL</p></Table.Head
+						><span>URL</span></Table.Head
 					>
-					<Table.Head class="w-[200px] py-2 px-4 rounded-tr"><p>When</p></Table.Head>
+					<Table.Head class="w-[200px] py-2 px-4 rounded-tr"><span>When</span></Table.Head>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body class="bg-zinc-900">
@@ -45,12 +45,12 @@
 							data.urls.length - 1
 								? 'rounded-bl'
 								: ''}"
-							><p
+							><span
 								use:copy={`${host}/${url.slug}`}
-								class="hover:text-blue-400 cursor-pointer transition-colors"
+								class="hover:text-blue-400 active:text-green-400 cursor-pointer select-none transition-colors"
 							>
 								{url.slug}
-							</p></Table.Cell
+							</span></Table.Cell
 						>
 						<Table.Cell class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
 							><a href={url.location} target="_blank" class="hover:text-blue-400 transition-colors"
@@ -58,9 +58,9 @@
 							></Table.Cell
 						>
 						<Table.Cell class="py-2 px-4 {i === data.urls.length - 1 ? 'rounded-br' : ''}"
-							><p class="font-medium">
+							><span class="font-medium">
 								{DateTime.fromJSDate(url.created_at).setLocale('en-US').toRelative()}
-							</p></Table.Cell
+							</span></Table.Cell
 						>
 					</Table.Row>
 				{/each}
