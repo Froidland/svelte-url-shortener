@@ -27,20 +27,21 @@
 			>
 			<Table.Header class="bg-zinc-700">
 				<Table.Row>
-					<Table.Head class="w-[250px] p-4 rounded-tl border-r-[1px] border-zinc-500 border-dotted"
+					<Table.Head
+						class="w-[250px] py-2 px-4 rounded-tl border-r-[1px] border-zinc-500 border-dotted"
 						><p>Slug</p></Table.Head
 					>
-					<Table.Head class="border-r-[1px] p-4 border-zinc-500 border-dotted"
+					<Table.Head class="border-r-[1px] py-2 px-4 border-zinc-500 border-dotted"
 						><p>URL</p></Table.Head
 					>
-					<Table.Head class="w-[200px] p-4 rounded-tr"><p>When</p></Table.Head>
+					<Table.Head class="w-[200px] py-2 px-4 rounded-tr"><p>When</p></Table.Head>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body class="bg-zinc-900">
 				{#each data.urls as url, i}
 					<Table.Row>
 						<Table.Cell
-							class="font-medium p-4 border-r-[1px] border-zinc-500 border-dotted {i ===
+							class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted {i ===
 							data.urls.length - 1
 								? 'rounded-bl'
 								: ''}"
@@ -51,12 +52,12 @@
 								{url.slug}
 							</p></Table.Cell
 						>
-						<Table.Cell class="font-medium p-4 border-r-[1px] border-zinc-500 border-dotted"
+						<Table.Cell class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
 							><a href={url.location} target="_blank" class="hover:text-blue-400 transition-colors"
 								>{url.location}</a
 							></Table.Cell
 						>
-						<Table.Cell class="p-4 {i === data.urls.length - 1 ? 'rounded-br' : ''}"
+						<Table.Cell class="py-2 px-4 {i === data.urls.length - 1 ? 'rounded-br' : ''}"
 							><p class="font-medium">
 								{DateTime.fromJSDate(url.created_at).setLocale('en-US').toRelative()}
 							</p></Table.Cell
