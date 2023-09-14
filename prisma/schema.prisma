@@ -59,7 +59,7 @@ model Key {
 model Url {
   slug String @id
 
-  location String
+  location String @db.VarChar(512)
 
   user    User?   @relation(fields: [user_id], references: [id])
   user_id String?
