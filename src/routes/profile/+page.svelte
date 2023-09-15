@@ -24,12 +24,10 @@
 			<Table.Row>
 				<Table.Head
 					class="w-[250px] py-2 px-4 rounded-tl border-r-[1px] border-zinc-500 border-dotted"
-					><span>Slug</span></Table.Head
+					>Slug</Table.Head
 				>
-				<Table.Head class="border-r-[1px] py-2 px-4 border-zinc-500 border-dotted"
-					><span>URL</span></Table.Head
-				>
-				<Table.Head class="w-[200px] py-2 px-4 rounded-tr"><span>When</span></Table.Head>
+				<Table.Head class="border-r-[1px] py-2 px-4 border-zinc-500 border-dotted">URL</Table.Head>
+				<Table.Head class="w-[250px] py-2 px-4 rounded-tr">When</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		{#await data.streamed.urls}
