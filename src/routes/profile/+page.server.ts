@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/');
 	}
 
-	const urls = await db.url.findMany({
+	const urls = db.url.findMany({
 		where: {
 			user_id: session.user.userId
 		},
@@ -20,6 +20,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	});
 
 	return {
-		urls
+		streamed: {
+			urls
+		}
 	};
 };
