@@ -1,4 +1,5 @@
 import { db } from '$lib/server/db';
+import { error } from '@sveltejs/kit';
 
 export const GET = async ({ params }) => {
 	const urlData = await db.url.findFirst({
@@ -8,9 +9,8 @@ export const GET = async ({ params }) => {
 	});
 
 	if (!urlData) {
-		return new Response(null, {
-			status: 404,
-			statusText: 'The url you are trying to access does not exist.'
+		throw error(404, {
+			message: 'The URL you are looking for does not exist.'
 		});
 	}
 
