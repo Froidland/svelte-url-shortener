@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const session = locals.session;
 
 	if (!session) {
-		throw redirect(302, '/');
+		throw redirect(302, '/api/auth/login/discord');
 	}
 
 	const urls = db.url.findMany({
