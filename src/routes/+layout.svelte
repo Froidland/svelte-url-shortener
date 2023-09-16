@@ -33,7 +33,7 @@
 					><UserCircle size="18" /> Profile</Button
 				>
 				<Button
-					class="rounded text-red-500 hover:bg-red-900 flex gap-2"
+					class="rounded text-red-500 hover:bg-red-700 flex gap-2"
 					variant="ghost"
 					href="/api/auth/logout"><LogOut size="18" />Log out</Button
 				>
