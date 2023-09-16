@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db';
 import { error } from '@sveltejs/kit';
 
-export const GET = async ({ params }) => {
+export async function GET({ params }) {
 	const urlData = await db.url.findFirst({
 		where: {
 			slug: params.slug,
@@ -21,4 +21,4 @@ export const GET = async ({ params }) => {
 			Location: urlData.location
 		}
 	});
-};
+}
