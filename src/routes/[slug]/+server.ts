@@ -4,7 +4,8 @@ import { error } from '@sveltejs/kit';
 export const GET = async ({ params }) => {
 	const urlData = await db.url.findFirst({
 		where: {
-			slug: params.slug
+			slug: params.slug,
+			deleted_at: null
 		}
 	});
 

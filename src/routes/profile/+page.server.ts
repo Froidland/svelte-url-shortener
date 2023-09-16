@@ -11,7 +11,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	const urls = db.url.findMany({
 		where: {
-			user_id: session.user.userId
+			user_id: session.user.userId,
+			deleted_at: null
 		},
 		take: 25,
 		orderBy: {

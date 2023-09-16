@@ -5,11 +5,25 @@
 	import { page } from '$app/stores';
 	import dayJs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
+	import { Trash2 } from 'lucide-svelte';
+	import { invalidateAll } from '$app/navigation';
 	dayJs.extend(relativeTime);
 
+	export let data: PageServerData;
 	const host = $page.url.origin;
 
-	export let data: PageServerData;
+	async function deleteEntry(slug: string) {
+		const res = await fetch(`/api/url/${slug}`, {
+			method: 'DELETE'
+		});
+
+		if (!res.ok) {
+			//TODO: Error popup or something.
+			return;
+		}
+
+		await invalidateAll();
+	}
 </script>
 
 <svelte:head>
@@ -27,7 +41,12 @@
 					>Slug</Table.Head
 				>
 				<Table.Head class="border-r-[1px] py-2 px-4 border-zinc-500 border-dotted">URL</Table.Head>
-				<Table.Head class="w-[250px] py-2 px-4 rounded-tr">When</Table.Head>
+				<Table.Head class="border-r-[1px] w-[175px] py-2 px-4 border-zinc-500 border-dotted"
+					>When</Table.Head
+				>
+				<Table.Head class="w-[150px] py-2 px-4 rounded-tr text-center border-zinc-500 border-dotted"
+					>Actions</Table.Head
+				>
 			</Table.Row>
 		</Table.Header>
 		{#await data.streamed.urls}
@@ -37,6 +56,7 @@
 					<Table.Cell class="text-center">
 						<p>Loading...</p>
 					</Table.Cell>
+					<Table.Cell></Table.Cell>
 					<Table.Cell></Table.Cell>
 				</Table.Row>
 			</Table.Body>
@@ -48,6 +68,7 @@
 						<Table.Cell class="text-center font-medium">
 							<p>You haven't created any short URLs yet.</p>
 						</Table.Cell>
+						<Table.Cell></Table.Cell>
 						<Table.Cell></Table.Cell>
 					</Table.Row>
 				</Table.Body>
@@ -74,11 +95,22 @@
 									class="hover:text-blue-400 transition-colors">{url.location}</a
 								></Table.Cell
 							>
-							<Table.Cell class="py-2 px-4 {i === urls.length - 1 ? 'rounded-br' : ''}"
+							<Table.Cell class="py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
 								><span class="font-medium">
 									{dayJs(url.created_at).fromNow()}
 								</span></Table.Cell
 							>
+							<Table.Cell
+								class="flex gap-2 items-center justify-center py-2 px-4 {i === urls.length - 1
+									? 'rounded-br'
+									: ''}"
+							>
+								<button
+									on:click={() => deleteEntry(url.slug)}
+									class="bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors"
+									><Trash2 size="18" /></button
+								>
+							</Table.Cell>
 						</Table.Row>
 					{/each}
 				</Table.Body>
