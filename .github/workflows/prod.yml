@@ -42,4 +42,4 @@ jobs:
             docker stop ${{ vars.CONTAINER_NAME }}
             docker rm ${{ vars.CONTAINER_NAME }}
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:prod
-            docker run --restart=unless-stopped -d --network=${{ secrets.DOCKER_NETWORK }} --name ${{ vars.CONTAINER_NAME }} --env-file ${{ secrets.SECRET_PATH }} ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:prod
+            docker run --restart=unless-stopped -d --network=${{ secrets.DOCKER_NETWORK }} -p 127.0.0.1:4001:3000 --name ${{ vars.CONTAINER_NAME }} --env-file ${{ secrets.SECRET_PATH }} ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:prod
