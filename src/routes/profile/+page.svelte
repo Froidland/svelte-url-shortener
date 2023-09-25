@@ -105,16 +105,18 @@
 			</Table.Body>
 		{/if}
 	</Table.Root>
-	<ul class="flex flex-wrap mt-6 mb-2 gap-x-2 gap-y-6 justify-center items-center">
-		{#each Array(totalPages) as _, index}
-			<li class="">
-				<a
-					class="py-2 px-4 font-medium rounded {currentPage === index
-						? 'bg-white text-black'
-						: 'bg-zinc-600 text-white'}"
-					href="/profile?limit={limit}&skip={limit * index}">{index + 1}</a
-				>
-			</li>
-		{/each}
-	</ul>
+	{#if totalPages > 0}
+		<ul class="flex flex-wrap mt-6 mb-2 gap-x-2 gap-y-6 justify-center items-center">
+			{#each Array(totalPages) as _, index}
+				<li class="">
+					<a
+						class="py-2 px-4 font-medium rounded {currentPage === index
+							? 'bg-white text-black'
+							: 'bg-zinc-600 text-white'}"
+						href="/profile?limit={limit}&skip={limit * index}">{index + 1}</a
+					>
+				</li>
+			{/each}
+		</ul>
+	{/if}
 </div>
