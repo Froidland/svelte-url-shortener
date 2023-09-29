@@ -3,7 +3,6 @@
 	import { Input } from '$lib/components/ui/input';
 	import { page } from '$app/stores';
 	import { copy } from 'svelte-copy';
-	import Slider from '$lib/components/ui/slider/slider.svelte';
 
 	const host = $page.url.origin;
 	let copied = false;
