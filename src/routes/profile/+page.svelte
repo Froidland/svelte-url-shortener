@@ -44,7 +44,7 @@
 
 <!-- Add limit dropdown -->
 <div class="bg-zinc-800 rounded p-3">
-	<h1 class="text-center font-bold text-xl mb-4">Created URLs</h1>
+	<h1 class="text-center text-4xl font-light mb-4">Created URLs</h1>
 	<Table.Root class="w-full">
 		<Table.Header class="bg-zinc-700">
 			<Table.Row>
@@ -119,7 +119,7 @@
 		Hint: click on the slug cell content to copy the short URL for that item.
 	</p>
 	{#if totalPages > 0}
-		<ul class="flex flex-wrap mt-6 mb-2 gap-x-2 gap-y-6 justify-center items-center">
+		<ul class="flex flex-wrap mt-4 mb-2 gap-x-2 gap-y-6 justify-center items-center">
 			{#each Array(totalPages) as _, index}
 				<li class="">
 					<a

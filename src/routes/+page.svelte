@@ -52,24 +52,25 @@
 </svelte:head>
 
 <div class="flex flex-col items-center gap-4 bg-zinc-800 p-3 rounded">
-	<h1 class="text-4xl">Create a shortened URL</h1>
-	<form class="flex flex-col gap-4" on:submit|preventDefault={handleSubmit}>
-		<div class="flex gap-4">
-			<Input
-				name="url"
-				placeholder="https://example.com/"
-				class="rounded w-[300px]"
-				maxlength={512}
-				bind:value={url}
-			/>
-			<Button type="submit" class="rounded">Create</Button>
-		</div>
+	<h1 class="text-4xl font-light text-center">Create a shortened URL</h1>
+	<form
+		class="flex items-center flex-col w-full max-w-xs gap-2"
+		on:submit|preventDefault={handleSubmit}
+	>
+		<Input
+			name="url"
+			placeholder="https://example.com/"
+			class="rounded w-full"
+			maxlength={512}
+			bind:value={url}
+		/>
+		<Button type="submit" disabled={!url} class="rounded w-min">Create</Button>
 	</form>
 	{#if generatedSlug}
 		<div class="flex flex-col gap-2 text-center">
 			<p class="font-medium">Generated URL</p>
 			<button
-				class="border-green-600 hover:bg-zinc-700 rounded border-solid border-[1px] py-2 px-4 cursor-pointer transition-colors active:bg-zinc-600"
+				class="border-green-600 hover:bg-zinc-700 text-clip rounded border-solid border-[1px] py-2 px-4 cursor-pointer transition-colors active:bg-zinc-600"
 				use:copy={`${host}/${generatedSlug}`}
 				on:svelte-copy={onCopy}
 			>

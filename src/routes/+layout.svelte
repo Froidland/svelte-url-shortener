@@ -11,9 +11,9 @@
 <ToastContainer placement="top-center" let:data>
 	<BootstrapToast {data} />
 </ToastContainer>
-<div class="container flex flex-col">
+<div class="container">
 	<nav class="flex items-center justify-between bg-zinc-800 p-3 my-3 rounded">
-		<div>
+		<div class="flex">
 			<Button
 				variant="ghost"
 				class="flex  gap-2 rounded font-semibold text-sm hover:bg-zinc-700"
