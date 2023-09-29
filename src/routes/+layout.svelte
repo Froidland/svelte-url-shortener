@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { Home, LogOut, UserCircle } from 'lucide-svelte';
 	import '../app.css';
 	import type { LayoutServerData } from './$types';
-	import DiscordIcon from '$lib/components/icons/DiscordIcon.svelte';
+	import { DiscordIcon, Home, UserCircle, LogOut } from '$lib/components/icons';
 
 	export let data: LayoutServerData;
 </script>
@@ -25,7 +24,7 @@
 					href="/api/auth/login/discord"
 					class="flex gap-2 hover:bg-blue-900 text-white text-sm font-semibold py-2 px-4 rounded items-center transition-colors"
 				>
-					<DiscordIcon size="18" />
+					<DiscordIcon size="24" />
 					Sign in with Discord
 				</a>
 			{:else}

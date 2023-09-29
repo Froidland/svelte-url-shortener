@@ -5,8 +5,8 @@
 	import { page } from '$app/stores';
 	import dayJs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
-	import { Trash2 } from 'lucide-svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { Trash2 } from '$lib/components/icons';
 	dayJs.extend(relativeTime);
 
 	export let data: PageServerData;

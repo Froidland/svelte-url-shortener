@@ -29,9 +29,6 @@ dependencies:
   lucia:
     specifier: ^2.5.0
     version: 2.5.0
-  lucide-svelte:
-    specifier: ^0.277.0
-    version: 0.277.0(svelte@4.2.0)
   radix-icons-svelte:
     specifier: ^1.2.1
     version: 1.2.1
@@ -1641,14 +1638,6 @@ packages:
 
   /lucia@2.5.0:
     resolution: {integrity: sha512-eUUtf4gBsT1vLF1UEkZly3Sh620N4P0TcGzeDMviFqF0qULB7XOgC9GMmobK3y9L/cEfoD8YHNxfIN/AzSXQsg==}
-    dev: false
-
-  /lucide-svelte@0.277.0(svelte@4.2.0):
-    resolution: {integrity: sha512-HrlMk0mTOd3MVSWA2ZHR79QrCycLRV4pey4HWGnGGoVFsh0/P7zGyDCJxy/MKe2t4SJtcStLdKIybMHc5pjFSQ==}
-    peerDependencies:
-      svelte: '>=3 <5'
-    dependencies:
-      svelte: 4.2.0
     dev: false
 
   /magic-string@0.27.0:
