@@ -115,6 +115,9 @@
 			</Table.Body>
 		{/if}
 	</Table.Root>
+	<p class="text-center text-zinc-600 mt-2 font-medium text-sm">
+		Hint: click on the slug cell content to copy the short URL for that item.
+	</p>
 	{#if totalPages > 0}
 		<ul class="flex flex-wrap mt-6 mb-2 gap-x-2 gap-y-6 justify-center items-center">
 			{#each Array(totalPages) as _, index}
