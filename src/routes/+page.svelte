@@ -10,8 +10,10 @@
 	let url: string = '';
 	let generatedSlug: string | null = null;
 	let error: string | null = null;
+	let loading = false;
 
 	async function handleSubmit(event: SubmitEvent) {
+		loading = true;
 		const formData = new FormData(event.target as HTMLFormElement);
 
 		const payload = JSON.stringify({
@@ -28,6 +30,7 @@
 
 			error = data.message;
 			generatedSlug = null;
+			loading = false;
 			return;
 		}
 
@@ -36,6 +39,7 @@
 		error = null;
 		generatedSlug = data.slug;
 		url = '';
+		loading = false;
 	}
 
 	function onCopy() {
@@ -64,7 +68,7 @@
 			maxlength={512}
 			bind:value={url}
 		/>
-		<Button type="submit" disabled={!url} class="rounded w-min">Create</Button>
+		<Button type="submit" disabled={!url || loading} class="rounded w-min">Create</Button>
 	</form>
 	{#if generatedSlug}
 		<div class="flex flex-col gap-2 text-center">
