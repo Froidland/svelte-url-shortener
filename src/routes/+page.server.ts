@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
-import { createId } from '@paralleldrive/cuid2';
 import { fail } from '@sveltejs/kit';
+import Randomstring from 'randomstring';
 
 const urlRegex =
 	/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
@@ -24,7 +24,7 @@ export const actions = {
 		}
 
 		const session = locals.session;
-		const slug = createId();
+		const slug = Randomstring.generate(12);
 
 		await db.url.create({
 			data: {
