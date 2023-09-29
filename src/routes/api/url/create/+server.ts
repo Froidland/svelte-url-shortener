@@ -5,6 +5,7 @@ import Randomstring from 'randomstring';
 const urlRegex =
 	/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
 
+// TODO: Rate limiting.
 export async function POST({ locals, request }) {
 	const data = await request.json();
 	const session = locals.session;
@@ -12,10 +13,21 @@ export async function POST({ locals, request }) {
 	const url = data.url;
 	const length = Number(data.length || 12);
 
-	if (!url || Number.isNaN(length)) {
+	if (!url) {
 		return json(
 			{
-				message: 'You must specify a URL to shorten and a valid length.'
+				message: 'You must specify a URL to shorten.'
+			},
+			{
+				status: 400
+			}
+		);
+	}
+
+	if (Number.isNaN(length)) {
+		return json(
+			{
+				message: "The value you provided for 'length' is not a number."
 			},
 			{
 				status: 400
