@@ -3,9 +3,9 @@
 	import { Input } from '$lib/components/ui/input';
 	import { page } from '$app/stores';
 	import { copy } from 'svelte-copy';
+	import { toasts } from 'svelte-toasts';
 
 	const host = $page.url.origin;
-	let copied = false;
 	let slugLength = [10];
 	let url: string = '';
 	let generatedSlug: string | null = null;
@@ -37,6 +37,14 @@
 		generatedSlug = data.slug;
 		url = '';
 	}
+
+	function onCopy() {
+		toasts.add({
+			description: 'Link copied!',
+			type: 'success',
+			duration: 1000
+		});
+	}
 </script>
 
 <svelte:head>
@@ -58,24 +66,21 @@
 		</div>
 	</form>
 	{#if generatedSlug}
-		<div class="flex gap-4 items-center">
-			<a
-				class="border-green-600 border-solid border-[1px] p-2"
-				href={`${host}/${generatedSlug}`}
-				target="_blank">{`${host}/${generatedSlug}`}</a
-			>
+		<div class="flex flex-col gap-2 text-center">
+			<p class="font-medium">Generated URL</p>
 			<button
-				class="bg-white text-black px-4 py-2 rounded font-semibold text-sm hover:bg-gray-200 transition-colors"
+				class="border-green-600 hover:bg-zinc-700 rounded border-solid border-[1px] py-2 px-4 cursor-pointer transition-colors active:bg-zinc-600"
 				use:copy={`${host}/${generatedSlug}`}
-				on:svelte-copy={() => (copied = true)}>{copied ? 'Copied!' : 'Copy'}</button
+				on:svelte-copy={onCopy}
 			>
+				{`${host}/${generatedSlug}`}
+			</button>
+			<span class="text-zinc-500 text-sm">Click the box above to copy the URL.</span>
 		</div>
 	{/if}
 	{#if error}
-		<div class="flex gap-4 items-center">
-			<p class="border-red-600 border-solid border-[1px] p-2">
-				{error}
-			</p>
-		</div>
+		<p class="border-red-600 border-solid rounded border-[1px] py-2 px-4">
+			{error}
+		</p>
 	{/if}
 </div>
