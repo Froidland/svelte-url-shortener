@@ -3,6 +3,9 @@
 	import { copy } from 'svelte-copy';
 	import { toasts } from 'svelte-toasts';
 
+	const urlRegex =
+		/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
+
 	const host = $page.url.origin;
 	let url: string = '';
 	let generatedSlug: string | null = null;
@@ -11,6 +14,13 @@
 
 	async function handleSubmit(event: SubmitEvent) {
 		loading = true;
+
+		if (!urlRegex.test(url)) {
+			error = 'The value you provided is not a valid URL.';
+			loading = false;
+			return;
+		}
+
 		const formData = new FormData(event.target as HTMLFormElement);
 
 		const payload = JSON.stringify({
