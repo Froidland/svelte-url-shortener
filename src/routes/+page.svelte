@@ -1,12 +1,9 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
 	import { page } from '$app/stores';
 	import { copy } from 'svelte-copy';
 	import { toasts } from 'svelte-toasts';
 
 	const host = $page.url.origin;
-	let slugLength = [10];
 	let url: string = '';
 	let generatedSlug: string | null = null;
 	let error: string | null = null;
@@ -61,31 +58,36 @@
 		class="flex items-center flex-col w-full max-w-xs gap-2"
 		on:submit|preventDefault={handleSubmit}
 	>
-		<Input
+		<input
 			name="url"
 			placeholder="https://example.com/"
-			class="rounded w-full"
-			maxlength={512}
+			class="rounded w-full p-2 bg-neutral-600 selection:bg-green-200 selection:text-green-950"
+			maxlength={2048}
 			bind:value={url}
 		/>
-		<Button type="submit" disabled={!url || loading} class="rounded w-min">Create</Button>
+		<button
+			type="submit"
+			disabled={!url || loading}
+			class="rounded bg-green-300 hover:bg-green-200 text-green-950 font-medium px-4 py-2 disabled:bg-neutral-400 transition-colors"
+			>Create</button
+		>
+		{#if generatedSlug}
+			<div class="flex flex-col gap-2 text-center items-center">
+				<p class="font-medium">Generated URL</p>
+				<div
+					class="rounded bg-green-300 p-2 text-green-950 font-medium hover:bg-green-200 w-fit transition-colors cursor-pointer"
+					use:copy={`${host}/${generatedSlug}`}
+					on:svelte-copy={onCopy}
+				>
+					{`${host}/${generatedSlug}`}
+				</div>
+				<span class="text-zinc-500 text-sm">Click the box above to copy the URL.</span>
+			</div>
+		{/if}
+		{#if error}
+			<p class="rounded bg-red-300 p-2 text-red-950 font-medium">
+				{error}
+			</p>
+		{/if}
 	</form>
-	{#if generatedSlug}
-		<div class="flex flex-col gap-2 text-center">
-			<p class="font-medium">Generated URL</p>
-			<button
-				class="border-green-600 hover:bg-zinc-700 text-clip rounded border-solid border-[1px] py-2 px-4 cursor-pointer transition-colors active:bg-zinc-600"
-				use:copy={`${host}/${generatedSlug}`}
-				on:svelte-copy={onCopy}
-			>
-				{`${host}/${generatedSlug}`}
-			</button>
-			<span class="text-zinc-500 text-sm">Click the box above to copy the URL.</span>
-		</div>
-	{/if}
-	{#if error}
-		<p class="border-red-600 border-solid rounded border-[1px] py-2 px-4">
-			{error}
-		</p>
-	{/if}
 </div>
