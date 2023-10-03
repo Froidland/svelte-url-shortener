@@ -59,7 +59,7 @@
 </script>
 
 <svelte:head>
-	<title>Simple URL shortener</title>
+	<title>URL Shortener</title>
 </svelte:head>
 
 <div class="flex flex-col items-center gap-4 bg-zinc-800 p-3 rounded">
@@ -75,17 +75,12 @@
 			maxlength={2048}
 			bind:value={url}
 		/>
-		<button
-			type="submit"
-			disabled={!url || loading}
-			class="rounded bg-green-300 hover:bg-green-200 text-green-950 font-medium px-4 py-2 disabled:bg-neutral-400 transition-colors"
-			>Create</button
-		>
+		<button type="submit" disabled={!url || loading} class="btn btn-primary">Create</button>
 		{#if generatedSlug}
 			<div class="flex flex-col gap-2 text-center items-center">
 				<p class="font-medium">Generated URL</p>
 				<div
-					class="rounded bg-green-300 p-2 text-green-950 font-medium hover:bg-green-200 w-fit transition-colors cursor-pointer"
+					class="rounded btn-primary px-4 py-2 font-medium w-fit transition-colors cursor-pointer"
 					use:copy={`${host}/${generatedSlug}`}
 					on:svelte-copy={onCopy}
 				>
