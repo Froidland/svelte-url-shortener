@@ -90,8 +90,10 @@
 							</span></Table.Cell
 						>
 						<Table.Cell class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
-							><a href={url.location} target="_blank" class="hover:text-blue-400 transition-colors"
-								>{url.location}</a
+							><a
+								href={url.location}
+								target="_blank"
+								class="hover:text-blue-400 transition-colors line-clamp-1">{url.location}</a
 							></Table.Cell
 						>
 						<Table.Cell class="py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
