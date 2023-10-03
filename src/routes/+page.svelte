@@ -17,6 +17,7 @@
 
 		if (!urlRegex.test(url)) {
 			error = 'The value you provided is not a valid URL.';
+			generatedSlug = null;
 			loading = false;
 			return;
 		}
