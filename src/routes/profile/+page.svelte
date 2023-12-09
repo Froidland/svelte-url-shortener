@@ -56,6 +56,9 @@
 				<Table.Head class="border-r-[1px] w-[175px] py-2 px-4 border-zinc-500 border-dotted"
 					>When</Table.Head
 				>
+				<Table.Head class="border-r-[1px] w-[75px] py-2 px-4 border-zinc-500 border-dotted">
+					Clicks
+				</Table.Head>
 				<Table.Head class="w-[150px] py-2 px-4 rounded-tr text-center border-zinc-500 border-dotted"
 					>Actions</Table.Head
 				>
@@ -101,6 +104,11 @@
 								{dayJs(url.createdAt).fromNow()}
 							</span></Table.Cell
 						>
+						<Table.Cell class="text-center py-2 px-4 border-r-[1px] border-zinc-500 border-dotted">
+							<span>
+								{url.clicks}
+							</span>
+						</Table.Cell>
 						<Table.Cell
 							class="flex gap-2 items-center justify-center py-2 px-4 {i === data.urls.length - 1
 								? 'rounded-br'

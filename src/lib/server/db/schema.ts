@@ -1,4 +1,5 @@
-import { datetime, index, mysqlTable, timestamp, varchar } from 'drizzle-orm/mysql-core';
+import { sql } from 'drizzle-orm';
+import { bigint, datetime, index, mysqlTable, timestamp, varchar } from 'drizzle-orm/mysql-core';
 
 export const users = mysqlTable('users', {
 	id: varchar('id', {
@@ -30,6 +31,7 @@ export const urls = mysqlTable(
 		slug: varchar('slug', { length: 255 }).primaryKey(),
 
 		redirect: varchar('redirect', { length: 2048 }).notNull(),
+		clicks: bigint('clicks', { unsigned: true, mode: 'bigint' }).default(sql`0`),
 
 		userId: varchar('user_id', { length: 24 }).references(() => users.id),
 
