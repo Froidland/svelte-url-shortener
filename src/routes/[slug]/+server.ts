@@ -1,12 +1,12 @@
 import { db } from '$lib/server/db';
 import { urls } from '$lib/server/db/schema.js';
 import { error } from '@sveltejs/kit';
-import { eq, sql } from 'drizzle-orm';
+import { and, eq, isNull, sql } from 'drizzle-orm';
 
 export async function GET({ params }) {
 	const url = await db.query.urls
 		.findFirst({
-			where: eq(urls.slug, params.slug)
+			where: and(eq(urls.slug, params.slug), isNull(urls.deletedAt))
 		})
 		.execute();
 
