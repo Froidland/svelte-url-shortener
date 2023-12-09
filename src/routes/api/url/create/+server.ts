@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db';
 import { urls } from '$lib/server/db/schema.js';
 import { json } from '@sveltejs/kit';
-import Randomstring from 'randomstring';
+import { generateRandomString } from 'oslo/random';
 
 const urlRegex =
 	/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
@@ -72,7 +72,10 @@ export async function POST({ locals, request }) {
 		);
 	}
 
-	const slug = Randomstring.generate(length);
+	const slug = generateRandomString(
+		length,
+		'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+	);
 
 	await db.insert(urls).values({
 		slug,
