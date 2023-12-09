@@ -73,6 +73,7 @@
 					</Table.Cell>
 					<Table.Cell></Table.Cell>
 					<Table.Cell></Table.Cell>
+					<Table.Cell></Table.Cell>
 				</Table.Row>
 			</Table.Body>
 		{:else}
