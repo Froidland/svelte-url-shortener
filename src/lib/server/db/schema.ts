@@ -33,7 +33,9 @@ export const urls = mysqlTable(
 		redirect: varchar('redirect', { length: 2048 }).notNull(),
 		clicks: bigint('clicks', { unsigned: true, mode: 'bigint' }).default(sql`0`),
 
-		userId: varchar('user_id', { length: 24 }).references(() => users.id),
+		userId: varchar('user_id', { length: 24 }).references(() => users.id, {
+			onDelete: 'set null'
+		}),
 
 		createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
 		deletedAt: timestamp('deleted_at', { mode: 'date' })
