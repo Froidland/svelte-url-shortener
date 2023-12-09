@@ -6,7 +6,7 @@ CREATE TABLE `sessions` (
 );
 
 CREATE TABLE `urls` (
-	`slug` varchar(255) NOT NULL,
+	`slug` varchar(255) NOT NULL COLLATE 'latin1_general_cs',
 	`redirect` varchar(2048) NOT NULL,
 	`clicks` bigint unsigned DEFAULT 0,
 	`user_id` varchar(24),
