@@ -7,5 +7,6 @@ export default {
 	driver: 'mysql2',
 	dbCredentials: {
 		uri: process.env.VITE_DATABASE_URL
-	}
+	},
+	breakpoints: false
 } satisfies Config;
