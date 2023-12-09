@@ -16,9 +16,9 @@ export const lucia = new Lucia(adapter, {
 });
 
 export const discordAuth = new Discord(
-	import.meta.env.VITE_DISCORD_CLIENT_ID,
-	import.meta.env.VITE_DISCORD_CLIENT_SECRET,
-	import.meta.env.VITE_DISCORD_REDIRECT_URI
+	process.env.DISCORD_CLIENT_ID!,
+	process.env.DISCORD_CLIENT_SECRET!,
+	process.env.DISCORD_REDIRECT_URI!
 );
 
 declare module 'lucia' {
