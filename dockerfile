@@ -12,8 +12,6 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpx prisma generate
-
 RUN pnpm build
 
 CMD [ "node", "build/" ]
