@@ -4,20 +4,10 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			auth: import('lucia').AuthRequest;
-			session: import('lucia').Session | null;
+			user: import("lucia").User | null;
 		}
 		// interface PageData {}
 		// interface Platform {}
-	}
-
-	namespace Lucia {
-		type Auth = import('$lib/server/lucia').Auth;
-		type DatabaseUserAttributes = {
-			discord_username: string;
-			discord_id: string;
-		};
-		type DatabaseSessionAttributes = NonNullable<unknown>;
 	}
 }
 

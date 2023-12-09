@@ -1,4 +1,5 @@
 import { db } from '$lib/server/db';
+import { urls } from '$lib/server/db/schema.js';
 import { json } from '@sveltejs/kit';
 import Randomstring from 'randomstring';
 
@@ -8,7 +9,7 @@ const urlRegex =
 // TODO: Rate limiting.
 export async function POST({ locals, request }) {
 	const data = await request.json();
-	const session = locals.session;
+	const user = locals.user;
 
 	const url = data.url;
 	const length = Number(data.length || 12);
@@ -73,12 +74,10 @@ export async function POST({ locals, request }) {
 
 	const slug = Randomstring.generate(length);
 
-	await db.url.create({
-		data: {
-			slug,
-			location: url,
-			user_id: session?.user.userId
-		}
+	await db.insert(urls).values({
+		slug,
+		redirect: url,
+		userId: user?.id
 	});
 
 	return json(

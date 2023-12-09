@@ -1,9 +1,9 @@
-import { auth } from '$lib/server/lucia';
+import { lucia } from '$lib/server/lucia';
 
-export async function GET({ locals }) {
-	const session = locals.session;
+export async function GET({ locals, cookies }) {
+	const user = locals.user;
 
-	if (!session) {
+	if (!user) {
 		return new Response(null, {
 			status: 401,
 			headers: {
@@ -12,9 +12,18 @@ export async function GET({ locals }) {
 		});
 	}
 
-	await auth.invalidateSession(session.sessionId);
+	try {
+		await lucia.invalidateSession(user.id);
+	} catch (error) {
+		console.error(error);
 
-	locals.auth.setSession(null);
+		return new Response(null, {
+			status: 500
+		});
+	}
+
+	const sessionCookie = lucia.createBlankSessionCookie();
+	cookies.set(sessionCookie.name, sessionCookie.value);
 
 	return new Response(null, {
 		status: 302,

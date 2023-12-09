@@ -1,25 +1,24 @@
-import { db } from '$lib/server/db.js';
+import { db } from '$lib/server/db/index.js';
+import { urls } from '$lib/server/db/schema.js';
 import { error } from '@sveltejs/kit';
+import { and, eq } from 'drizzle-orm';
 
 export async function DELETE({ locals, params }) {
-	const session = locals.session;
+	const user = locals.user;
 
-	if (!session) {
+	if (!user) {
 		throw error(401, {
 			message: 'You need to log in to access this endpoint.'
 		});
 	}
 
 	try {
-		await db.url.update({
-			where: {
-				slug: params.id,
-				user_id: session.user.userId
-			},
-			data: {
-				deleted_at: new Date()
-			}
-		});
+		await db
+			.update(urls)
+			.set({
+				deletedAt: new Date()
+			})
+			.where(and(eq(urls.userId, user.id), eq(urls.slug, params.id)));
 	} catch (err) {
 		throw error(500, {
 			message: 'An unexpected error ocurred while trying to delete the URL, please try again later.'

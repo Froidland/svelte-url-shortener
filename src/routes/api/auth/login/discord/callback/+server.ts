@@ -1,6 +1,11 @@
-import { auth, discordAuth } from '$lib/server/lucia.js';
+import { db } from '$lib/server/db/index.js';
+import { users } from '$lib/server/db/schema.js';
+import { discordAuth, lucia } from '$lib/server/lucia.js';
+import { OAuth2RequestError } from 'arctic';
+import { eq } from 'drizzle-orm';
+import { generateId } from 'lucia';
 
-export async function GET({ url, cookies, locals }) {
+export async function GET({ url, cookies }) {
 	const storedState = cookies.get('discord_oauth_state');
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
@@ -12,45 +17,47 @@ export async function GET({ url, cookies, locals }) {
 	}
 
 	try {
-		const { getExistingUser, discordUser, createUser } = await discordAuth.validateCallback(code);
+		const discordTokens = await discordAuth.validateAuthorizationCode(code);
+		const discordUser = await discordAuth.getUser(discordTokens.accessToken);
 
-		const getUser = async () => {
-			const existingUser = await getExistingUser();
-
-			if (existingUser) {
-				return existingUser;
-			}
-
-			const user = await createUser({
-				attributes: {
-					discord_username: discordUser.username,
-					discord_id: discordUser.id
-				}
-			});
-
-			return user;
-		};
-
-		const user = await getUser();
-
-		const session = await auth.createSession({
-			userId: user.userId,
-			attributes: {}
+		const existingUser = await db.query.users.findFirst({
+			where: eq(users.discordId, discordUser.id)
 		});
 
-		locals.auth.setSession(session);
+		if (existingUser) {
+			const session = await lucia.createSession(existingUser.id, {});
+			const sessionCookie = lucia.createSessionCookie(session.id);
+
+			return new Response(null, {
+				status: 302,
+				headers: {
+					Location: '/profile',
+					'Set-Cookie': sessionCookie.serialize()
+				}
+			});
+		}
+
+		const userId = generateId(24);
+		await db.insert(users).values({
+			id: userId,
+			discordId: discordUser.id,
+			discordUsername: discordUser.username
+		});
+
+		const session = await lucia.createSession(userId, {});
+		const sessionCookie = lucia.createSessionCookie(session.id);
 
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/profile'
+				Location: '/profile',
+				'Set-Cookie': sessionCookie.serialize()
 			}
 		});
-		// eslint-disable-next-line
-	} catch (error: any) {
+	} catch (error) {
 		console.error(error);
-		//! Apparently there is an error with the OAuthRequestError import from lucia.
-		if (error.message === 'OAUTH_REQUEST_FAILED') {
+
+		if (error instanceof OAuth2RequestError) {
 			return new Response(null, {
 				status: 400
 			});

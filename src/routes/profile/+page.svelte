@@ -13,7 +13,7 @@
 	export let data: PageServerData;
 	const host = $page.url.origin;
 	$: limit = Number($page.url.searchParams.get('limit')) || 10;
-	$: totalPages = Math.ceil(data.total / limit);
+	$: totalPages = Math.ceil(data.total[0].count / limit);
 	$: currentPage = (Number($page.url.searchParams.get('skip')) || 0) / limit;
 
 	async function deleteEntry(slug: string) {
@@ -91,14 +91,14 @@
 						>
 						<Table.Cell class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
 							><a
-								href={url.location}
+								href={url.redirect}
 								target="_blank"
-								class="hover:text-blue-400 transition-colors line-clamp-1">{url.location}</a
+								class="hover:text-blue-400 transition-colors line-clamp-1">{url.redirect}</a
 							></Table.Cell
 						>
 						<Table.Cell class="py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
 							><span class="font-medium">
-								{dayJs(url.created_at).fromNow()}
+								{dayJs(url.createdAt).fromNow()}
 							</span></Table.Cell
 						>
 						<Table.Cell

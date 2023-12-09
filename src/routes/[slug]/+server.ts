@@ -1,15 +1,16 @@
 import { db } from '$lib/server/db';
+import { urls } from '$lib/server/db/schema.js';
 import { error } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
 
 export async function GET({ params }) {
-	const urlData = await db.url.findFirst({
-		where: {
-			slug: params.slug,
-			deleted_at: null
-		}
-	});
+	const url = await db.query.urls
+		.findFirst({
+			where: eq(urls.slug, params.slug)
+		})
+		.execute();
 
-	if (!urlData) {
+	if (!url) {
 		throw error(404, {
 			message: 'The URL you are looking for does not exist.'
 		});
@@ -18,7 +19,7 @@ export async function GET({ params }) {
 	return new Response(null, {
 		status: 302,
 		headers: {
-			Location: urlData.location
+			Location: url.redirect
 		}
 	});
 }

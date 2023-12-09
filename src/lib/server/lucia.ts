@@ -1,28 +1,32 @@
-import { lucia } from 'lucia';
-import { sveltekit } from 'lucia/middleware';
-import { prisma } from '@lucia-auth/adapter-prisma';
-
-import { discord } from '@lucia-auth/oauth/providers';
+import { Lucia } from 'lucia';
+import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { db } from './db';
+import { sessions, users } from './db/schema';
 import { dev } from '$app/environment';
+import { Discord } from 'arctic';
 
-export const auth = lucia({
-	env: dev ? "DEV" : "PROD",
-	middleware: sveltekit(),
-	adapter: prisma(db),
+const adapter = new DrizzleMySQLAdapter(db, sessions, users);
 
-	getUserAttributes: (data) => {
-		return {
-			discord_username: data.discord_username,
-			discord_id: data.discord_id
-		};
+export const lucia = new Lucia(adapter, {
+	sessionCookie: {
+		attributes: {
+			secure: !dev
+		}
 	}
 });
 
-export const discordAuth = discord(auth, {
-	clientId: process.env.VITE_DISCORD_CLIENT_ID,
-	clientSecret: process.env.VITE_DISCORD_CLIENT_SECRET,
-	redirectUri: process.env.VITE_DISCORD_REDIRECT_URI
-});
+export const discordAuth = new Discord(
+	import.meta.env.VITE_DISCORD_CLIENT_ID,
+	import.meta.env.VITE_DISCORD_CLIENT_SECRET,
+	import.meta.env.VITE_DISCORD_REDIRECT_URI
+);
 
-export type Auth = typeof auth;
+declare module 'lucia' {
+	interface Register {
+		Lucia: typeof lucia;
+		DatabaseUserAttributes: {
+			discordId: string;
+			discordUsername: string;
+		};
+	}
+}
