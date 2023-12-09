@@ -8,12 +8,6 @@ dependencies:
   '@lucia-auth/adapter-drizzle':
     specifier: 1.0.0-beta.0
     version: 1.0.0-beta.0(lucia@3.0.0-beta.11)
-  '@lucia-auth/adapter-prisma':
-    specifier: ^3.0.2
-    version: 3.0.2(@prisma/client@5.7.0)(lucia@3.0.0-beta.11)
-  '@lucia-auth/oauth':
-    specifier: ^3.5.0
-    version: 3.5.0(lucia@3.0.0-beta.11)
   '@tailwindcss/line-clamp':
     specifier: ^0.4.4
     version: 0.4.4(tailwindcss@3.3.6)
@@ -47,9 +41,6 @@ dependencies:
   radix-icons-svelte:
     specifier: ^1.2.1
     version: 1.2.1
-  randomstring:
-    specifier: ^1.3.0
-    version: 1.3.0
   svelte-toasts:
     specifier: ^1.1.2
     version: 1.1.2
@@ -70,12 +61,6 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.27.7
     version: 1.27.7(svelte@4.2.8)(vite@5.0.7)
-  '@types/luxon':
-    specifier: ^3.3.7
-    version: 3.3.7
-  '@types/randomstring':
-    specifier: ^1.1.11
-    version: 1.1.11
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.13.2
     version: 6.13.2(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)(typescript@5.3.3)
@@ -954,24 +939,6 @@ packages:
       lucia: 3.0.0-beta.11
     dev: false
 
-  /@lucia-auth/adapter-prisma@3.0.2(@prisma/client@5.7.0)(lucia@3.0.0-beta.11):
-    resolution: {integrity: sha512-EyJWZene1/zasPwPctv8wwNErZt5mwwm5JATbhg+kXr3R8pbC7lJfVzDTAeeFClVH5k/FywRcsBl3JkPaNIcow==}
-    peerDependencies:
-      '@prisma/client': ^4.2.0 || ^5.0.0
-      lucia: ^2.0.0
-    dependencies:
-      '@prisma/client': 5.7.0
-      lucia: 3.0.0-beta.11
-    dev: false
-
-  /@lucia-auth/oauth@3.5.0(lucia@3.0.0-beta.11):
-    resolution: {integrity: sha512-JSwAMVwlDJtbvfcJV1nbkv41OD830pgICrx8zFT71SYd5I1MnEQ+GqMTXBGRyxzc5XlLatT8ZS1Jt0k81487xg==}
-    peerDependencies:
-      lucia: ^2.0.0
-    dependencies:
-      lucia: 3.0.0-beta.11
-    dev: false
-
   /@melt-ui/svelte@0.64.5(svelte@4.2.8):
     resolution: {integrity: sha512-nPQA2guLuLitpZ6A968eWyGMC2riTKLq4R26hPRLdzP/JHCpd9yvddgMwil8JKbUKjT2dC3i358vUqeUOGxknA==}
     peerDependencies:
@@ -1280,17 +1247,6 @@ packages:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
     dev: true
 
-  /@prisma/client@5.7.0:
-    resolution: {integrity: sha512-cZmglCrfNbYpzUtz7HscVHl38e9CrUs31nrVoGUK1nIPXGgt8hT4jj2s657UXcNdQ/jBUxDgGmHyu2Nyrq1txg==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dev: false
-
   /@rollup/plugin-commonjs@25.0.7(rollup@3.29.4):
     resolution: {integrity: sha512-nEvcR+LRjEjsaSsc4x3XZfCCvZIaSMenZu/OiwOKGN2UhQpAYI7ru7czFvyWbErlpoGjnSX3D5Ch5FcMA3kRWQ==}
     engines: {node: '>=14.0.0'}
@@ -1569,10 +1525,6 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
-  /@types/luxon@3.3.7:
-    resolution: {integrity: sha512-gKc9P2d4g5uYwmy4s/MO/yOVPmvHyvzka1YH6i5dM03UrFofHSmgc0D0ymbDRStFWHusk6cwwF6nhLm/ckBbbQ==}
-    dev: true
-
   /@types/node-forge@1.3.10:
     resolution: {integrity: sha512-y6PJDYN4xYBxwd22l+OVH35N+1fCYWiuC3aiP2SlXVE6Lo7SS+rSx9r89hLxrP4pn6n1lBGhHJ12pj3F3Mpttw==}
     dependencies:
@@ -1587,10 +1539,6 @@ packages:
 
   /@types/pug@2.0.10:
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
-    dev: true
-
-  /@types/randomstring@1.1.11:
-    resolution: {integrity: sha512-j3y9mKzGyYN5PHWjRv8Ah/ieZlApRbfSb0rBWVrW9Z+z5N1xjZpbBxgVKbO7WAGfnMpvLG2Gg8gRPxo+f0JWmg==}
     dev: true
 
   /@types/resolve@1.20.2:
@@ -3413,17 +3361,6 @@ packages:
 
   /radix-icons-svelte@1.2.1:
     resolution: {integrity: sha512-svmiMd0ocpdTm9cvAz0klcZpnh639lVctj6psQiawd4pYalVzOG4cX+JizAgRckyTAsRVdzObP7D2EBrSfdghA==}
-    dev: false
-
-  /randombytes@2.0.3:
-    resolution: {integrity: sha512-lDVjxQQFoCG1jcrP06LNo2lbWp4QTShEXnhActFBwYuHprllQV6VUpwreApsYqCgD+N1mHoqJ/BI/4eV4R2GYg==}
-    dev: false
-
-  /randomstring@1.3.0:
-    resolution: {integrity: sha512-gY7aQ4i1BgwZ8I1Op4YseITAyiDiajeZOPQUbIq9TPGPhUm5FX59izIaOpmKbME1nmnEiABf28d9K2VSii6BBg==}
-    hasBin: true
-    dependencies:
-      randombytes: 2.0.3
     dev: false
 
   /read-cache@1.0.0:
