@@ -5,10 +5,7 @@ export async function GET({ locals, cookies }) {
 
 	if (!user) {
 		return new Response(null, {
-			status: 401,
-			headers: {
-				Location: '/'
-			}
+			status: 401
 		});
 	}
 
