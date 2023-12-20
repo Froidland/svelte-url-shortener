@@ -2,14 +2,12 @@
 	import '../app.css';
 	import type { LayoutServerData } from './$types';
 	import { DiscordIcon, Home, UserCircle, LogOut } from '$lib/components/icons';
-	import { BootstrapToast, ToastContainer } from 'svelte-toasts';
+	import { Toaster } from 'svelte-french-toast';
 
 	export let data: LayoutServerData;
 </script>
 
-<ToastContainer placement="top-center" let:data>
-	<BootstrapToast {data} />
-</ToastContainer>
+<Toaster />
 <div class="container">
 	<nav class="flex items-center justify-between bg-zinc-800 p-3 my-3 rounded">
 		<div class="flex">

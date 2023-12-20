@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { copy } from 'svelte-copy';
-	import { toasts } from 'svelte-toasts';
+	import toast from 'svelte-french-toast';
 
 	const urlRegex =
 		/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
@@ -50,11 +50,9 @@
 		loading = false;
 	}
 
-	function onCopy() {
-		toasts.add({
-			description: 'Link copied!',
-			type: 'success',
-			duration: 1000
+	function onUrlCopy() {
+		toast.success('URL copied!', {
+			style: 'background: #18181B; color: #fff;'
 		});
 	}
 </script>
@@ -83,7 +81,7 @@
 				<div
 					class="rounded btn-primary px-4 py-2 font-medium w-fit transition-colors cursor-pointer"
 					use:copy={`${host}/${generatedSlug}`}
-					on:svelte-copy={onCopy}
+					on:svelte-copy={onUrlCopy}
 				>
 					{`${host}/${generatedSlug}`}
 				</div>

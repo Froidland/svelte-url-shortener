@@ -7,7 +7,7 @@
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import { invalidateAll } from '$app/navigation';
 	import { Trash2 } from '$lib/components/icons';
-	import { toasts } from 'svelte-toasts';
+	import toast from 'svelte-french-toast';
 	dayJs.extend(relativeTime);
 
 	export let data: PageServerData;
@@ -29,11 +29,9 @@
 		await invalidateAll();
 	}
 
-	function onCopy() {
-		toasts.add({
-			description: 'Link copied!',
-			type: 'success',
-			duration: 1000
+	function onUrlCopy() {
+		toast.success('URL copied!', {
+			style: 'background: #18181B; color: #fff;'
 		});
 	}
 </script>
@@ -87,7 +85,7 @@
 								: ''}"
 							><span
 								use:copy={`${host}/${url.slug}`}
-								on:svelte-copy={onCopy}
+								on:svelte-copy={onUrlCopy}
 								class="hover:text-blue-400 active:text-green-400 cursor-pointer select-none transition-colors"
 							>
 								{url.slug}
