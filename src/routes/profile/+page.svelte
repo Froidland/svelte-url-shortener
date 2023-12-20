@@ -22,7 +22,10 @@
 		});
 
 		if (!res.ok) {
-			//TODO: Error popup or something.
+			toast.error('An error occurred while deleting the URL.', {
+				style: 'background: #18181B; color: #fff;'
+			});
+
 			return;
 		}
 
