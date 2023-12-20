@@ -3,7 +3,6 @@ import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
-	plugins: [require('@tailwindcss/line-clamp')],
 	darkMode: ['class'],
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {

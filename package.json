@@ -39,7 +39,6 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "1.0.0-beta.0",
-		"@tailwindcss/line-clamp": "^0.4.4",
 		"arctic": "^0.7.1",
 		"bits-ui": "^0.11.6",
 		"clsx": "^2.0.0",
