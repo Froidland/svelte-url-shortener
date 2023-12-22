@@ -35,6 +35,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			count: count()
 		})
 		.from(urls)
+		.where(and(eq(urls.userId, user.id), isNull(urls.deletedAt)))
 		.execute();
 
 	return {
