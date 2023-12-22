@@ -17,11 +17,14 @@
 	$: currentPage = (Number($page.url.searchParams.get('skip')) || 0) / limit;
 
 	async function deleteEntry(slug: string) {
+		const toastId = toast.loading('Deleting URL...');
+
 		const res = await fetch(`/api/url/${slug}`, {
 			method: 'DELETE'
 		});
 
 		if (!res.ok) {
+			toast.remove(toastId);
 			toast.error('An error occurred while deleting the URL.', {
 				style: 'background: #18181B; color: #fff;'
 			});
@@ -29,6 +32,10 @@
 			return;
 		}
 
+		toast.remove(toastId);
+		toast.success('URL deleted!', {
+			style: 'background: #18181B; color: #fff;'
+		});
 		await invalidateAll();
 	}
 
