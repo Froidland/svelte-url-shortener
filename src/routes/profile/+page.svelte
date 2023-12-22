@@ -17,7 +17,9 @@
 	$: currentPage = (Number($page.url.searchParams.get('skip')) || 0) / limit;
 
 	async function deleteEntry(slug: string) {
-		const toastId = toast.loading('Deleting URL...');
+		const toastId = toast.loading('Deleting URL...', {
+			style: 'background: #18181B; color: #fff;'
+		});
 
 		const res = await fetch(`/api/url/${slug}`, {
 			method: 'DELETE'
