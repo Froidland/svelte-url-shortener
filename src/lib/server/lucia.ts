@@ -4,6 +4,7 @@ import { db } from './db';
 import { sessions, users } from './db/schema';
 import { dev } from '$app/environment';
 import { Discord } from 'arctic';
+import { env } from '$env/dynamic/private';
 
 const adapter = new DrizzleMySQLAdapter(db, sessions, users);
 
@@ -16,9 +17,9 @@ export const lucia = new Lucia(adapter, {
 });
 
 export const discordAuth = new Discord(
-	process.env.DISCORD_CLIENT_ID!,
-	process.env.DISCORD_CLIENT_SECRET!,
-	process.env.DISCORD_REDIRECT_URI!
+	env.PRIVATE_DISCORD_CLIENT_ID!,
+	env.PRIVATE_DISCORD_CLIENT_SECRET!,
+	env.PRIVATE_DISCORD_REDIRECT_URI!
 );
 
 declare module 'lucia' {

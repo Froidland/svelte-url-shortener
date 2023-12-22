@@ -5,7 +5,7 @@ import mysql from 'mysql2/promise';
 
 (async () => {
 	const connection = await mysql.createConnection({
-		uri: process.env.DATABASE_URL
+		uri: process.env.PRIVATE_DATABASE_URL
 	});
 
 	const db = drizzle(connection, {
