@@ -1,5 +1,5 @@
 import { error, redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
 import { and, desc, eq, isNull, count } from 'drizzle-orm';
 import { urls } from '$lib/server/db/schema';
