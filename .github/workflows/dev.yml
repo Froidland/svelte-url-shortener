@@ -42,4 +42,4 @@ jobs:
             docker stop ${{ vars.DEV_CONTAINER_NAME }}
             docker rm ${{ vars.DEV_CONTAINER_NAME }}
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:dev
-            docker run --restart=unless-stopped -d --network=${{ secrets.DOCKER_NETWORK }} -p 127.0.0.1:4002:3000 --name ${{ vars.DEV_CONTAINER_NAME }} --env-file ${{ secrets.SECRET_PATH }} ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:dev
+            docker run --restart=unless-stopped -d --network=${{ secrets.DOCKER_NETWORK }} -p 127.0.0.1:4002:3000 --name ${{ vars.DEV_CONTAINER_NAME }} --env-file ${{ secrets.DEV_SECRET_PATH }} ${{ secrets.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:dev
