@@ -20,7 +20,7 @@ export async function GET({ locals, cookies }) {
 	}
 
 	const sessionCookie = lucia.createBlankSessionCookie();
-	cookies.set(sessionCookie.name, sessionCookie.value);
+	cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
 	return new Response(null, {
 		status: 302,
