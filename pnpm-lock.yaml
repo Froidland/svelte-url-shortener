@@ -35,9 +35,6 @@ dependencies:
   oslo:
     specifier: ^0.23.5
     version: 0.23.5
-  radix-icons-svelte:
-    specifier: ^1.2.1
-    version: 1.2.1
   svelte-french-toast:
     specifier: ^1.2.0
     version: 1.2.0(svelte@4.2.8)
@@ -94,9 +91,6 @@ devDependencies:
   svelte-check:
     specifier: ^3.6.2
     version: 3.6.2(postcss@8.4.32)(svelte@4.2.8)
-  svelte-copy:
-    specifier: ^1.4.1
-    version: 1.4.1(svelte@4.2.8)
   tailwindcss:
     specifier: ^3.3.6
     version: 3.3.6
@@ -3348,10 +3342,6 @@ packages:
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  /radix-icons-svelte@1.2.1:
-    resolution: {integrity: sha512-svmiMd0ocpdTm9cvAz0klcZpnh639lVctj6psQiawd4pYalVzOG4cX+JizAgRckyTAsRVdzObP7D2EBrSfdghA==}
-    dev: false
-
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
     dependencies:
@@ -3659,14 +3649,6 @@ packages:
       - sass
       - stylus
       - sugarss
-    dev: true
-
-  /svelte-copy@1.4.1(svelte@4.2.8):
-    resolution: {integrity: sha512-ixNNlTfIQWYnQzE0pdMYVCS/2jzMhXm41jmtSvk8EK2Dh+B5sDFEz2xYYo4fVtwtK0dLW5M5ZH/Rs5Jah0r6dw==}
-    peerDependencies:
-      svelte: ^3.55.0 || ^4.0.0
-    dependencies:
-      svelte: 4.2.8
     dev: true
 
   /svelte-eslint-parser@0.33.1(svelte@4.2.8):

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { copy } from 'svelte-copy';
 	import * as Table from '$lib/components/ui/table';
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
@@ -40,7 +39,17 @@
 		);
 	}
 
-	function onUrlCopy() {
+	async function copyUrl(url: string) {
+		try {
+			await navigator.clipboard.writeText(url);
+		} catch (error) {
+			toast.error('An error occurred while copying the URL.', {
+				style: 'background: #18181B; color: #fff;'
+			});
+
+			return;
+		}
+
 		toast.success('URL copied!', {
 			style: 'background: #18181B; color: #fff;'
 		});
@@ -94,13 +103,13 @@
 							data.urls.length - 1
 								? 'rounded-bl'
 								: ''}"
-							><span
-								use:copy={`${host}/${url.slug}`}
-								on:svelte-copy={onUrlCopy}
+							><button
+								type="button"
+								on:click={() => copyUrl(`${host}/${url.slug}`)}
 								class="hover:text-blue-400 active:text-green-400 cursor-pointer select-none transition-colors"
 							>
 								{url.slug}
-							</span></Table.Cell
+							</button></Table.Cell
 						>
 						<Table.Cell class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
 							><a

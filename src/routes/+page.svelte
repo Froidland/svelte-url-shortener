@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { copy } from 'svelte-copy';
 	import toast from 'svelte-french-toast';
 
 	const urlRegex =
@@ -50,7 +49,17 @@
 		loading = false;
 	}
 
-	function onUrlCopy() {
+	async function copyUrl(url: string) {
+		try {
+			await navigator.clipboard.writeText(url);
+		} catch (error) {
+			toast.error('An error occurred while copying the URL.', {
+				style: 'background: #18181B; color: #fff;'
+			});
+
+			return;
+		}
+
 		toast.success('URL copied!', {
 			style: 'background: #18181B; color: #fff;'
 		});
@@ -78,13 +87,13 @@
 		{#if generatedSlug}
 			<div class="flex flex-col gap-2 text-center items-center">
 				<p class="font-medium">Generated URL</p>
-				<div
+				<button
+					type="button"
 					class="rounded btn-primary px-4 py-2 font-medium w-fit transition-colors cursor-pointer"
-					use:copy={`${host}/${generatedSlug}`}
-					on:svelte-copy={onUrlCopy}
+					on:click={() => copyUrl(`${host}/${generatedSlug}`)}
 				>
 					{`${host}/${generatedSlug}`}
-				</div>
+				</button>
 				<span class="text-zinc-500 text-sm">Click the box above to copy the URL.</span>
 			</div>
 		{/if}
