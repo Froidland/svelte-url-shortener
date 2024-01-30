@@ -11,7 +11,7 @@ export async function GET({ params }) {
 		.execute();
 
 	if (!url) {
-		throw error(404, {
+		error(404, {
 			message: 'The URL you are looking for does not exist.'
 		});
 	}

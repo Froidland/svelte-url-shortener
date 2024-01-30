@@ -7,7 +7,7 @@ export async function DELETE({ locals, params }) {
 	const user = locals.user;
 
 	if (!user) {
-		throw error(401, {
+		error(401, {
 			message: 'You need to log in to access this endpoint.'
 		});
 	}
@@ -20,7 +20,7 @@ export async function DELETE({ locals, params }) {
 			})
 			.where(and(eq(urls.userId, user.id), eq(urls.slug, params.id)));
 	} catch (err) {
-		throw error(500, {
+		error(500, {
 			message: 'An unexpected error ocurred while trying to delete the URL, please try again later.'
 		});
 	}

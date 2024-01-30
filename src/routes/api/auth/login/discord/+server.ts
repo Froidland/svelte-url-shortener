@@ -4,7 +4,9 @@ import { generateState } from 'arctic';
 
 export async function GET({ cookies }) {
 	const state = generateState();
-	const url = await discordAuth.createAuthorizationURL(state);
+	const url = await discordAuth.createAuthorizationURL(state, {
+		scopes: ['identify']
+	});
 
 	cookies.set('discord_oauth_state', state, {
 		httpOnly: true,

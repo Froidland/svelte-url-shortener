@@ -18,7 +18,20 @@ export async function GET({ url, cookies }) {
 
 	try {
 		const discordTokens = await discordAuth.validateAuthorizationCode(code);
-		const discordUser = await discordAuth.getUser(discordTokens.accessToken);
+
+		const res = await fetch('https://discord.com/api/users/@me', {
+			headers: {
+				Authorization: `Bearer ${discordTokens.accessToken}`
+			}
+		});
+
+		if (!res.ok) {
+			return new Response(null, {
+				status: 500
+			});
+		}
+
+		const discordUser = (await res.json()) as DiscordUser;
 
 		const existingUser = await db.query.users.findFirst({
 			where: eq(users.discordId, discordUser.id)
@@ -27,12 +40,15 @@ export async function GET({ url, cookies }) {
 		if (existingUser) {
 			const session = await lucia.createSession(existingUser.id, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
+			cookies.set(sessionCookie.name, sessionCookie.value, {
+				path: '.',
+				...sessionCookie.attributes
+			});
 
 			return new Response(null, {
 				status: 302,
 				headers: {
-					Location: '/profile',
-					'Set-Cookie': sessionCookie.serialize()
+					Location: '/'
 				}
 			});
 		}
@@ -46,12 +62,15 @@ export async function GET({ url, cookies }) {
 
 		const session = await lucia.createSession(userId, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
+		cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '.',
+			...sessionCookie.attributes
+		});
 
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/profile',
-				'Set-Cookie': sessionCookie.serialize()
+				Location: '/'
 			}
 		});
 	} catch (error) {
@@ -68,3 +87,20 @@ export async function GET({ url, cookies }) {
 		});
 	}
 }
+
+type DiscordUser = {
+	id: string;
+	username: string;
+	avatar: string;
+	discriminator: string;
+	public_flags: number;
+	premium_type: number;
+	flags: number;
+	banner: string | null;
+	accent_color: number;
+	global_name: string | null;
+	avatar_decoration_data: unknown;
+	banner_color: string;
+	mfa_enabled: boolean;
+	locale: string;
+};

@@ -25,9 +25,11 @@ export const discordAuth = new Discord(
 declare module 'lucia' {
 	interface Register {
 		Lucia: typeof lucia;
-		DatabaseUserAttributes: {
-			discordId: string;
-			discordUsername: string;
-		};
+		DatabaseUserAttributes: DatabaseUserAttributes;
 	}
+}
+
+interface DatabaseUserAttributes {
+	discordId: string;
+	discordUsername: string;
 }

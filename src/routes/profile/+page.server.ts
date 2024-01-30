@@ -10,15 +10,15 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	const skip = Number(url.searchParams.get('skip')) || 0;
 
 	if (limit > 100) {
-		throw error(400, 'limit can not be greater than 100.');
+		error(400, 'limit can not be greater than 100.');
 	}
 
 	if (skip < 0) {
-		throw error(400, 'skip can not be less than 0.');
+		error(400, 'skip can not be less than 0.');
 	}
 
 	if (!user) {
-		throw redirect(302, '/api/auth/login/discord');
+		redirect(302, '/api/auth/login/discord');
 	}
 
 	const urlData = db.query.urls
@@ -39,8 +39,8 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		.execute();
 
 	return {
-		urls: urlData,
-		total: urlCount,
+		urls: await urlData,
+		total: await urlCount,
 		limit,
 		skip
 	};
