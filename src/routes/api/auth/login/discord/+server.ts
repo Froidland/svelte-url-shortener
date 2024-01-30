@@ -1,5 +1,6 @@
 import { dev } from '$app/environment';
 import { discordAuth } from '$lib/server/lucia.js';
+import { redirect } from '@sveltejs/kit';
 import { generateState } from 'arctic';
 
 export async function GET({ cookies }) {
@@ -12,13 +13,9 @@ export async function GET({ cookies }) {
 		httpOnly: true,
 		secure: !dev,
 		path: '/',
-		maxAge: 60 * 60
+		maxAge: 60 * 10,
+		sameSite: 'lax'
 	});
 
-	return new Response(null, {
-		status: 302,
-		headers: {
-			Location: url.toString()
-		}
-	});
+	redirect(302, url);
 }
