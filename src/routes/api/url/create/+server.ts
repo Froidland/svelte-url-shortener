@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db';
 import { urls } from '$lib/server/db/schema.js';
 import { json } from '@sveltejs/kit';
-import { generateRandomString } from 'oslo/random';
+import { generateRandomString } from 'oslo/crypto';
 
 const urlRegex =
 	/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
