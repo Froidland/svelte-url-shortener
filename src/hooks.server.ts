@@ -1,5 +1,8 @@
 import { lucia } from '$lib/server/lucia';
+import { urlRedis } from '$lib/server/redis';
 import type { Handle } from '@sveltejs/kit';
+
+urlRedis.connect();
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionId = event.cookies.get(lucia.sessionCookieName);
