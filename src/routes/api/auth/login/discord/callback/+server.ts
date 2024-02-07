@@ -12,9 +12,7 @@ export async function GET({ url, cookies }) {
 	const code = url.searchParams.get('code');
 
 	if (!storedState || !state || storedState !== state || !code) {
-		return new Response(null, {
-			status: 400
-		});
+		error(400, 'Invalid state or code. Please try logging in again.');
 	}
 
 	let discordTokens;
@@ -29,7 +27,7 @@ export async function GET({ url, cookies }) {
 
 		error(500, 'Unexpected error.');
 	}
-	
+
 	const res = await fetch('https://discord.com/api/users/@me', {
 		headers: {
 			Authorization: `Bearer ${discordTokens.accessToken}`
