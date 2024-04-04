@@ -17,7 +17,7 @@
 		</div>
 		<div class="flex gap-2">
 			{#if !data.isLoggedIn}
-				<a href="/api/auth/login/discord" class="btn btn-secondary gap-2">
+				<a href="/api/oauth/discord" class="btn btn-secondary gap-2">
 					<DiscordIcon size="24" />
 					Sign in with Discord
 				</a>
