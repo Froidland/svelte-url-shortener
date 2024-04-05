@@ -13,6 +13,13 @@ export const lucia = new Lucia(adapter, {
 		attributes: {
 			secure: !dev
 		}
+	},
+	getUserAttributes: (attributes) => {
+		return {
+			id: attributes.discordId,
+			username: attributes.discordUsername,
+			isAllowedCustomSlugs: attributes.isAllowedCustomSlugs
+		};
 	}
 });
 
@@ -32,4 +39,5 @@ declare module 'lucia' {
 interface DatabaseUserAttributes {
 	discordId: string;
 	discordUsername: string;
+	isAllowedCustomSlugs: boolean;
 }

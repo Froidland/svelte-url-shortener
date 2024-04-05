@@ -1,53 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import toast from 'svelte-french-toast';
-
-	const urlRegex =
-		/[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
-
-	const host = $page.url.origin;
-	let url: string = '';
-	let generatedSlug: string | null = null;
-	let error: string | null = null;
-	let loading = false;
-
-	async function handleSubmit(event: SubmitEvent) {
-		loading = true;
-
-		if (!urlRegex.test(url)) {
-			error = 'The value you provided is not a valid URL.';
-			generatedSlug = null;
-			loading = false;
-			return;
-		}
-
-		const formData = new FormData(event.target as HTMLFormElement);
-
-		const payload = JSON.stringify({
-			url: formData.get('url')
-		});
-
-		const res = await fetch('/api/url/create', {
-			method: 'POST',
-			body: payload
-		});
-
-		if (!res.ok) {
-			const data = await res.json();
-
-			error = data.message;
-			generatedSlug = null;
-			loading = false;
-			return;
-		}
-
-		const data = await res.json();
-
-		error = null;
-		generatedSlug = data.slug;
-		url = '';
-		loading = false;
-	}
+	import type { PageData, ActionData } from './$types';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { schema } from './schema';
+	import { Field, Control, Label, Description, FieldErrors } from 'formsnap';
 
 	async function copyUrl(url: string) {
 		try {
@@ -64,43 +22,70 @@
 			style: 'background: #18181B; color: #fff;'
 		});
 	}
+
+	export let data: PageData;
+	const host = $page.url.origin;
+	const form = superForm(data.form, {
+		validators: zodClient(schema)
+	});
+	const { form: formData, enhance, message } = form;
 </script>
 
 <svelte:head>
 	<title>URL Shortener</title>
 </svelte:head>
 
-<div class="flex flex-col items-center gap-4 bg-zinc-800 p-3 rounded">
-	<h1 class="text-4xl font-light text-center">Create a shortened URL</h1>
-	<form
-		class="flex items-center flex-col w-full max-w-xs gap-2"
-		on:submit|preventDefault={handleSubmit}
-	>
-		<input
-			name="url"
-			placeholder="https://example.com/"
-			class="rounded w-full p-2 bg-neutral-600 selection:bg-green-200 selection:text-green-950"
-			maxlength={2048}
-			bind:value={url}
-		/>
-		<button type="submit" disabled={!url || loading} class="btn btn-primary">Create</button>
-		{#if generatedSlug}
-			<div class="flex flex-col gap-2 text-center items-center">
-				<p class="font-medium">Generated URL</p>
+<div class="flex flex-col items-center gap-4 rounded bg-zinc-800 p-6">
+	<form class="flex max-w-[400px] flex-col gap-1" method="post" use:enhance>
+		<Field {form} name="destination">
+			<Control let:attrs>
+				<Label class="font-medium">Destination</Label>
+				<input
+					class="w-full rounded bg-neutral-600 p-2 selection:bg-green-200 selection:text-green-950"
+					{...attrs}
+					type="text"
+					bind:value={$formData.destination}
+				/>
+			</Control>
+			<div>
+				<Description class="text-sm italic"
+					>The destination where the URL will redirect to.</Description
+				>
+				<FieldErrors class="italic text-red-500" />
+			</div>
+		</Field>
+		<Field {form} name="slug">
+			<Control let:attrs>
+				<Label class="font-medium">Slug</Label>
+				<input
+					class="w-full rounded bg-neutral-600 p-2 selection:bg-green-200 selection:text-green-950 disabled:bg-neutral-700"
+					{...attrs}
+					type="text"
+					disabled={!data.user.isAllowedCustomSlugs}
+					bind:value={$formData.slug}
+				/>
+			</Control>
+			<div>
+				<Description class="text-sm italic"
+					>The URL identifier. Only allowed users can enter a custom one, it is randomly generated
+					otherwise.
+				</Description>
+				<FieldErrors class="italic text-red-500" />
+			</div>
+		</Field>
+		<button class="btn-primary cursor-pointer rounded px-4 py-2 font-medium transition-colors"
+			>Create</button
+		>
+		{#if $message}
+			<div class="flex justify-center gap-2 text-center pt-3">
 				<button
 					type="button"
-					class="rounded btn-primary px-4 py-2 font-medium w-fit transition-colors cursor-pointer"
-					on:click={() => copyUrl(`${host}/${generatedSlug}`)}
+					class="btn-secondary w-fit cursor-pointer rounded px-4 py-2 font-medium transition-colors"
+					on:click={() => copyUrl(`${host}/${$message}`)}
 				>
-					{`${host}/${generatedSlug}`}
+					{host}/{$message}
 				</button>
-				<span class="text-zinc-500 text-sm">Click the box above to copy the URL.</span>
 			</div>
-		{/if}
-		{#if error}
-			<p class="rounded bg-red-300 p-2 text-red-950 font-medium">
-				{error}
-			</p>
 		{/if}
 	</form>
 </div>

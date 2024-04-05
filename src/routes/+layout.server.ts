@@ -5,11 +5,17 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 
 	if (!user) {
 		return {
-			isLoggedIn: false
+			user: {
+				isLoggedIn: false,
+				isAllowedCustomSlugs: false
+			}
 		};
 	}
 
 	return {
-		isLoggedIn: true
+		user: {
+			isLoggedIn: true,
+			isAllowedCustomSlugs: user.isAllowedCustomSlugs
+		}
 	};
 };

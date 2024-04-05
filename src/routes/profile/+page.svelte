@@ -61,23 +61,23 @@
 </svelte:head>
 
 <!-- Add limit dropdown -->
-<div class="bg-zinc-800 rounded p-3">
-	<h1 class="text-center text-4xl font-light mb-4">Created URLs</h1>
+<div class="rounded bg-zinc-800 p-3">
+	<h1 class="mb-4 text-center text-4xl font-light">Created URLs</h1>
 	<Table.Root class="w-full">
 		<Table.Header class="bg-zinc-700">
 			<Table.Row>
 				<Table.Head
-					class="w-[250px] py-2 px-4 rounded-tl border-r-[1px] border-zinc-500 border-dotted"
+					class="w-[250px] rounded-tl border-r-[1px] border-dotted border-zinc-500 px-4 py-2"
 					>Slug</Table.Head
 				>
-				<Table.Head class="border-r-[1px] py-2 px-4 border-zinc-500 border-dotted">URL</Table.Head>
-				<Table.Head class="border-r-[1px] w-[175px] py-2 px-4 border-zinc-500 border-dotted"
+				<Table.Head class="border-r-[1px] border-dotted border-zinc-500 px-4 py-2">URL</Table.Head>
+				<Table.Head class="w-[175px] border-r-[1px] border-dotted border-zinc-500 px-4 py-2"
 					>When</Table.Head
 				>
-				<Table.Head class="border-r-[1px] w-[75px] py-2 px-4 border-zinc-500 border-dotted">
+				<Table.Head class="w-[75px] border-r-[1px] border-dotted border-zinc-500 px-4 py-2">
 					Clicks
 				</Table.Head>
-				<Table.Head class="w-[150px] py-2 px-4 rounded-tr text-center border-zinc-500 border-dotted"
+				<Table.Head class="w-[150px] rounded-tr border-dotted border-zinc-500 px-4 py-2 text-center"
 					>Actions</Table.Head
 				>
 			</Table.Row>
@@ -99,43 +99,43 @@
 				{#each data.urls as url, i}
 					<Table.Row>
 						<Table.Cell
-							class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted {i ===
+							class="border-r-[1px] border-dotted border-zinc-500 px-4 py-2 font-medium {i ===
 							data.urls.length - 1
 								? 'rounded-bl'
 								: ''}"
 							><button
 								type="button"
 								on:click={() => copyUrl(`${host}/${url.slug}`)}
-								class="hover:text-blue-400 active:text-green-400 cursor-pointer select-none transition-colors"
+								class="cursor-pointer select-none transition-colors hover:text-blue-400 active:text-green-400"
 							>
 								{url.slug}
 							</button></Table.Cell
 						>
-						<Table.Cell class="font-medium py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
+						<Table.Cell class="border-r-[1px] border-dotted border-zinc-500 px-4 py-2 font-medium"
 							><a
-								href={url.redirect}
+								href={url.destination}
 								target="_blank"
-								class="hover:text-blue-400 transition-colors line-clamp-1">{url.redirect}</a
+								class="line-clamp-1 transition-colors hover:text-blue-400">{url.destination}</a
 							></Table.Cell
 						>
-						<Table.Cell class="py-2 px-4 border-r-[1px] border-zinc-500 border-dotted"
+						<Table.Cell class="border-r-[1px] border-dotted border-zinc-500 px-4 py-2"
 							><span class="font-medium">
 								{dayJs(url.createdAt).fromNow()}
 							</span></Table.Cell
 						>
-						<Table.Cell class="text-center py-2 px-4 border-r-[1px] border-zinc-500 border-dotted">
+						<Table.Cell class="border-r-[1px] border-dotted border-zinc-500 px-4 py-2 text-center">
 							<span>
 								{url.clicks}
 							</span>
 						</Table.Cell>
 						<Table.Cell
-							class="flex gap-2 items-center justify-center py-2 px-4 {i === data.urls.length - 1
+							class="flex items-center justify-center gap-2 px-4 py-2 {i === data.urls.length - 1
 								? 'rounded-br'
 								: ''}"
 						>
 							<button
 								on:click={() => deleteEntry(url.slug)}
-								class="bg-red-400 py-2 px-2 rounded hover:bg-red-300 transition-colors"
+								class="rounded bg-red-400 px-2 py-2 transition-colors hover:bg-red-300"
 								><Trash2 size="18" class="text-red-950" /></button
 							>
 						</Table.Cell>
@@ -144,15 +144,15 @@
 			</Table.Body>
 		{/if}
 	</Table.Root>
-	<p class="text-center text-zinc-600 mt-2 font-medium text-sm">
+	<p class="mt-2 text-center text-sm font-medium text-zinc-600">
 		Hint: click on the slug cell content to copy the short URL for that item.
 	</p>
 	{#if totalPages > 0}
-		<ul class="flex flex-wrap mt-4 mb-2 gap-x-2 gap-y-6 justify-center items-center">
+		<ul class="mb-2 mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-6">
 			{#each Array(totalPages) as _, index}
 				<li class="">
 					<a
-						class="py-2 px-4 font-medium rounded {currentPage === index
+						class="rounded px-4 py-2 font-medium {currentPage === index
 							? 'bg-white text-black'
 							: 'bg-zinc-600 text-white'}"
 						href="/profile?limit={limit}&skip={limit * index}">{index + 1}</a

@@ -40,7 +40,7 @@ export async function GET({ params }) {
 	}
 
 	// Fire and forget, therefore no await
-	urlRedis.set(params.slug, url.redirect, 'EX', 3600).catch(console.error);
+	urlRedis.set(params.slug, url.destination, 'EX', 3600).catch(console.error);
 
 	db.update(urls)
 		.set({
@@ -52,7 +52,7 @@ export async function GET({ params }) {
 	return new Response(null, {
 		status: 302,
 		headers: {
-			Location: url.redirect
+			Location: url.destination
 		}
 	});
 }
