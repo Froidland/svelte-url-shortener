@@ -4,6 +4,10 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>URL Preview | {data.url.slug}</title>
+</svelte:head>
+
 <div class="flex flex-col items-center gap-4 rounded bg-zinc-800 p-6">
 	<p>This URL redirects to the following website:</p>
 	<a
