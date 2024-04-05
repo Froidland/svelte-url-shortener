@@ -51,7 +51,7 @@
 				<Description class="text-sm italic"
 					>The destination where the URL will redirect to.</Description
 				>
-				<FieldErrors class="italic text-red-500" />
+				<FieldErrors class="font-medium italic text-red-500" />
 			</div>
 		</Field>
 		<Field {form} name="slug">
@@ -70,14 +70,14 @@
 					>The URL identifier. Only allowed users can enter a custom one, it is randomly generated
 					otherwise.
 				</Description>
-				<FieldErrors class="italic text-red-500" />
+				<FieldErrors class="font-medium italic text-red-500" />
 			</div>
 		</Field>
 		<button class="btn-primary cursor-pointer rounded px-4 py-2 font-medium transition-colors"
 			>Create</button
 		>
 		{#if $message}
-			<div class="flex justify-center gap-2 text-center pt-3">
+			<div class="flex justify-center gap-2 pt-3 text-center">
 				<button
 					type="button"
 					class="btn-secondary w-fit cursor-pointer rounded px-4 py-2 font-medium transition-colors"
