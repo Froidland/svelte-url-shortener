@@ -1,12 +1,16 @@
-import 'dotenv/config';
-import type { Config } from 'drizzle-kit';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
-	schema: './src/lib/server/db/schema.ts',
-	out: './drizzle/migrations',
-	driver: 'mysql2',
+export default defineConfig({
+	dialect: 'mysql',
 	dbCredentials: {
-		uri: process.env.PRIVATE_DATABASE_URL
+		url: process.env.PRIVATE_DATABASE_URL!
 	},
-	breakpoints: false
-} satisfies Config;
+	schema: './src/lib/server/db/schema.ts',
+	migrations: {
+		table: 'migrations',
+		schema: './src/lib/server/db/schema.ts'
+	},
+	out: 'migrations',
+	strict: true,
+	verbose: true
+});

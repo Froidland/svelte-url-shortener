@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "30351e5b-239a-4769-b7b9-c970a51d61d4",
-  "prevId": "b9572a51-2743-43da-971b-9dd5702fe77d",
+  "id": "ce388d04-c8dc-4e79-8d3d-5713acb82c19",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "sessions": {
       "name": "sessions",
@@ -206,12 +206,13 @@
       "uniqueConstraints": {}
     }
   },
-  "schemas": {},
   "_meta": {
     "schemas": {},
     "tables": {},
-    "columns": {
-      "\"urls\".\"redirect\"": "\"urls\".\"destination\""
-    }
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
   }
 }
