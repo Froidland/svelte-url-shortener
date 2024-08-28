@@ -9,7 +9,7 @@ export const users = pgTable('users', {
 	discordId: varchar('discord_id', { length: 255 }).notNull(),
 	discordUsername: varchar('discord_username', { length: 255 }).notNull(),
 
-	isAllowedCustomSlugs: boolean('is_allowed_custom_slugs').default(false),
+	isAllowedCustomSlugs: boolean('is_allowed_custom_slugs').default(false).notNull(),
 
 	createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
 	updatedAt: timestamp('updated_at', { mode: 'date' }).default(sql`now()`)

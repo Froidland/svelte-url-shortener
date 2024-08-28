@@ -1,0 +1,1 @@
+ALTER TABLE "users" ALTER COLUMN "is_allowed_custom_slugs" SET NOT NULL;
