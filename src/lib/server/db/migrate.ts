@@ -1,16 +1,13 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import { migrate } from 'drizzle-orm/mysql2/migrator';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import * as schema from './schema';
-import mysql from 'mysql2/promise';
+import postgres from 'postgres';
 
 (async () => {
-	const connection = await mysql.createConnection({
-		uri: process.env.PRIVATE_DATABASE_URL
-	});
+	const connection = postgres(process.env.PRIVATE_DATABASE_URL!, { max: 1 });
 
 	const db = drizzle(connection, {
 		schema,
-		mode: 'default',
 		logger: true
 	});
 

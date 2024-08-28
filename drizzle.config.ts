@@ -1,7 +1,7 @@
 import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
-	dialect: 'mysql',
+	dialect: 'postgresql',
 	dbCredentials: {
 		url: process.env.PRIVATE_DATABASE_URL!
 	},

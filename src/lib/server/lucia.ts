@@ -1,12 +1,12 @@
 import { Lucia } from 'lucia';
-import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle';
+import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { db } from './db';
 import { sessions, users } from './db/schema';
 import { dev } from '$app/environment';
 import { Discord } from 'arctic';
 import { env } from '$env/dynamic/private';
 
-const adapter = new DrizzleMySQLAdapter(db, sessions, users);
+const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
 
 export const lucia = new Lucia(adapter, {
 	sessionCookie: {

@@ -1,15 +1,12 @@
-import { drizzle } from 'drizzle-orm/mysql2';
+import { drizzle } from 'drizzle-orm/postgres-js';
 import * as schema from './schema';
-import mysql from 'mysql2/promise';
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
+import postgres from 'postgres';
 
-const poolConnection = mysql.createPool({
-	uri: env.PRIVATE_DATABASE_URL
-});
+const queryClient = postgres(env.PRIVATE_DATABASE_URL);
 
-export const db = drizzle(poolConnection, {
+export const db = drizzle(queryClient, {
 	schema,
-	mode: 'default',
 	logger: dev
 });
