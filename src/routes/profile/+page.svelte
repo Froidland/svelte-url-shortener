@@ -115,7 +115,8 @@
 							><a
 								href={url.destination}
 								target="_blank"
-								class="line-clamp-1 transition-colors hover:text-blue-400">{url.destination}</a
+								class="line-clamp-1 break-all transition-colors hover:text-blue-400"
+								>{url.destination}</a
 							></Table.Cell
 						>
 						<Table.Cell class="border-r-[1px] border-dotted border-zinc-500 px-4 py-2"
