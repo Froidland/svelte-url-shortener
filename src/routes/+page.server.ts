@@ -5,9 +5,8 @@ import { generateRandomString } from 'oslo/crypto';
 import { db } from '$lib/server/db';
 import { urls } from '$lib/server/db/schema';
 
-const slugAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-const disallowedSlugs = ['api', 'profile'];
+const SLUG_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const DISALLOWED_SLUGS = ['api', 'profile'];
 
 export async function load() {
 	return {
@@ -29,13 +28,13 @@ export const actions = {
 			});
 		}
 
-		if (disallowedSlugs.includes(form.data.slug)) {
+		if (DISALLOWED_SLUGS.includes(form.data.slug)) {
 			return fail(400, {
 				form: { ...form, errors: { slug: ['This slug is reserved.'] } }
 			});
 		}
 
-		const slug = form.data.slug || generateRandomString(12, slugAlphabet);
+		const slug = form.data.slug || generateRandomString(12, SLUG_ALPHABET);
 
 		try {
 			await db.insert(urls).values({
