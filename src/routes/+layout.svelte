@@ -12,7 +12,7 @@
 	<nav class="my-3 flex items-center justify-between rounded bg-zinc-800 p-3">
 		<div class="flex">
 			<a class="btn btn-secondary gap-2" href="/">
-				<Home size="18" /> <span class="hidden sm:block">Home</span>
+				<Home size="18" /> <span class="hidden sm:inline">Home</span>
 			</a>
 		</div>
 		<div class="flex gap-2">
@@ -23,10 +23,10 @@
 				</a>
 			{:else}
 				<a class="btn btn-secondary gap-2" href="/profile"
-					><UserCircle size="18" /> <span class="hidden sm:block">Profile</span></a
+					><UserCircle size="18" /> <span class="hidden sm:inline">Profile</span></a
 				>
 				<a class="btn btn-destructive gap-2" href="/api/auth/logout"
-					><LogOut size="18" /><span class="hidden sm:block">Log out</span></a
+					><LogOut size="18" /><span class="hidden sm:inline">Log out</span></a
 				>
 			{/if}
 		</div>
