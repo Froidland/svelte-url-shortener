@@ -35,5 +35,16 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	event.locals.user = user;
 	event.locals.session = session;
-	return resolve(event);
+	const response = await resolve(event);
+
+	applySecurityHeaders(response);
+
+	return response;
 };
+
+function applySecurityHeaders(response: Response) {
+	response.headers.set('Content-Security-Policy', "frame-ancestors 'none'");
+	response.headers.set('X-Frame-Options', 'DENY');
+	response.headers.set('X-Content-Type-Options', 'nosniff');
+	response.headers.set('Strict-Transport-Security', 'max-age=604800; includeSubDomains');
+}
