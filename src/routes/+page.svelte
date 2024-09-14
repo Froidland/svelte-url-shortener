@@ -68,8 +68,7 @@
 				</Control>
 				<div>
 					<Description class="text-sm italic"
-						>The URL identifier. Only allowed users can enter a custom one, it is randomly generated
-						otherwise.
+						>The URL identifier. Randomly generated if not specified.
 					</Description>
 					<FieldErrors class="font-medium italic text-red-500" />
 				</div>
