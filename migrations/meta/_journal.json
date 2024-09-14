@@ -15,6 +15,13 @@
       "when": 1724818980816,
       "tag": "0001_big_spectrum",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726289131478,
+      "tag": "0002_narrow_kingpin",
+      "breakpoints": true
     }
   ]
 }

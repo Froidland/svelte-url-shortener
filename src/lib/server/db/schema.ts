@@ -1,5 +1,5 @@
-import { sql } from 'drizzle-orm';
-import { bigint, boolean, index, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { relations, sql } from 'drizzle-orm';
+import { bigint, boolean, index, pgTable, serial, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
 	id: varchar('id', {
@@ -33,7 +33,6 @@ export const urls = pgTable(
 		slug: varchar('slug', { length: 255 }).primaryKey(),
 
 		destination: varchar('destination', { length: 2048 }).notNull(),
-		clicks: bigint('clicks', { mode: 'bigint' }).default(sql`0`),
 
 		userId: varchar('user_id', { length: 24 }).references(() => users.id, {
 			onDelete: 'set null'
@@ -42,10 +41,38 @@ export const urls = pgTable(
 		createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
 		deletedAt: timestamp('deleted_at', { mode: 'date' })
 	},
-	(table) => {
+	(self) => {
 		return {
-			slugIndex: index('slug_idx').on(table.slug),
-			userIdIndex: index('user_id_idx').on(table.userId)
+			slugIndex: index('slug_idx').on(self.slug),
+			userIdIndex: index('user_id_idx').on(self.userId)
 		};
 	}
 );
+
+export const urlsRelations = relations(urls, ({ many }) => ({
+	clicks: many(clicks)
+}));
+
+export const clicks = pgTable(
+	'clicks',
+	{
+		id: serial('id').primaryKey(),
+		urlSlug: varchar('url_slug', { length: 255 }).references(() => urls.slug),
+		ip: varchar('ip', { length: 255 }),
+		country: varchar('country', { length: 255 }),
+		city: varchar('city', { length: 255 }),
+		createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow()
+	},
+	(self) => {
+		return {
+			urlSlugIndex: index('url_slug_idx').on(self.urlSlug)
+		};
+	}
+);
+
+export const clicksRelations = relations(clicks, ({ one }) => ({
+	url: one(urls, {
+		fields: [clicks.urlSlug],
+		references: [urls.slug]
+	})
+}));

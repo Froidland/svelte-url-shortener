@@ -1,8 +1,8 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { and, desc, eq, isNull, count } from 'drizzle-orm';
-import { urls } from '$lib/server/db/schema';
+import { and, desc, eq, isNull, count, sql } from 'drizzle-orm';
+import { clicks, urls } from '$lib/server/db/schema';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const user = locals.user;
@@ -21,13 +21,21 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		redirect(302, '/api/auth/login/discord');
 	}
 
-	const urlData = db.query.urls
-		.findMany({
-			where: and(eq(urls.userId, user.id), isNull(urls.deletedAt)),
-			limit,
-			offset: skip,
-			orderBy: [desc(urls.createdAt)]
+	const urlData = db
+		.select({
+			slug: urls.slug,
+			destination: urls.destination,
+			createdAt: urls.createdAt,
+			clicks:
+				sql<number>`(select count(*) from ${clicks} where ${clicks.urlSlug} = ${urls.slug})`.as(
+					'clicks'
+				)
 		})
+		.from(urls)
+		.where(and(eq(urls.userId, user.id), isNull(urls.deletedAt)))
+		.orderBy(desc(urls.createdAt))
+		.limit(limit)
+		.offset(skip)
 		.execute();
 
 	const urlCount = db

@@ -35,6 +35,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	event.locals.user = user;
 	event.locals.session = session;
+	event.request.headers.set(
+		'x-forwarded-for',
+		event.request.headers.get('x-forwarded-for') || event.getClientAddress()
+	);
+
 	const response = await resolve(event);
 
 	applySecurityHeaders(response);
