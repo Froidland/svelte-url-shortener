@@ -36,7 +36,7 @@
 </svelte:head>
 
 <div class="flex flex-col items-center gap-4 rounded bg-zinc-800 p-6">
-	<form class="flex max-w-[400px] flex-col gap-1" method="post" use:enhance>
+	<form class="flex w-full max-w-[400px] flex-col gap-1" method="post" use:enhance>
 		<Field {form} name="destination">
 			<Control let:attrs>
 				<Label class="font-medium">Destination</Label>
@@ -54,25 +54,27 @@
 				<FieldErrors class="font-medium italic text-red-500" />
 			</div>
 		</Field>
-		<Field {form} name="slug">
-			<Control let:attrs>
-				<Label class="font-medium">Slug</Label>
-				<input
-					class="w-full rounded bg-neutral-600 p-2 selection:bg-green-200 selection:text-green-950 disabled:bg-neutral-700"
-					{...attrs}
-					type="text"
-					disabled={!data.user.isAllowedCustomSlugs}
-					bind:value={$formData.slug}
-				/>
-			</Control>
-			<div>
-				<Description class="text-sm italic"
-					>The URL identifier. Only allowed users can enter a custom one, it is randomly generated
-					otherwise.
-				</Description>
-				<FieldErrors class="font-medium italic text-red-500" />
-			</div>
-		</Field>
+		{#if data.user.isAllowedCustomSlugs}
+			<Field {form} name="slug">
+				<Control let:attrs>
+					<Label class="font-medium">Slug</Label>
+					<input
+						class="w-full rounded bg-neutral-600 p-2 selection:bg-green-200 selection:text-green-950 disabled:bg-neutral-700"
+						{...attrs}
+						type="text"
+						disabled={!data.user.isAllowedCustomSlugs}
+						bind:value={$formData.slug}
+					/>
+				</Control>
+				<div>
+					<Description class="text-sm italic"
+						>The URL identifier. Only allowed users can enter a custom one, it is randomly generated
+						otherwise.
+					</Description>
+					<FieldErrors class="font-medium italic text-red-500" />
+				</div>
+			</Field>
+		{/if}
 		<button class="btn-primary cursor-pointer rounded px-4 py-2 font-medium transition-colors"
 			>Create</button
 		>
