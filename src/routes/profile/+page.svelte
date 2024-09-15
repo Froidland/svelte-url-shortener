@@ -134,6 +134,7 @@
 								? 'rounded-br'
 								: ''}"
 						>
+							<a href="/{url.slug}/stats">View</a>
 							<button
 								on:click={() => deleteEntry(url.slug)}
 								class="rounded bg-red-400 px-2 py-2 transition-colors hover:bg-red-300"
