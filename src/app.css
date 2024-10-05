@@ -47,19 +47,19 @@
 		padding-right: 1rem;
 		padding-top: 1rem;
 		padding-bottom: 1rem;
-		@apply disabled:opacity-50 transition-colors;
+		@apply transition-colors disabled:opacity-50;
 	}
 
 	.btn-primary {
-		@apply bg-green-300 hover:bg-green-200 text-green-950;
+		@apply bg-green-300 text-green-950 hover:bg-green-200;
 	}
 
 	.btn-secondary {
-		@apply bg-blue-300 hover:bg-blue-200 text-blue-950;
+		@apply bg-blue-300 text-blue-950 hover:bg-blue-200;
 	}
 
 	.btn-destructive {
-		@apply bg-red-400 hover:bg-red-300 text-red-950;
+		@apply bg-red-400 text-red-950 hover:bg-red-300;
 	}
 }
 
