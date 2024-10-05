@@ -3,6 +3,7 @@
 	import type { LayoutServerData } from './$types';
 	import { DiscordIcon, Home, UserCircle, LogOut } from '$lib/components/icons';
 	import { Toaster } from 'svelte-french-toast';
+	import ProfileDropdown from '$lib/components/ProfileDropdown.svelte';
 
 	export let data: LayoutServerData;
 </script>
@@ -22,12 +23,7 @@
 					Sign in with Discord
 				</a>
 			{:else}
-				<a class="btn btn-secondary gap-2" href="/profile"
-					><UserCircle size="18" /> <span class="hidden sm:inline">Profile</span></a
-				>
-				<a class="btn btn-destructive gap-2" href="/api/auth/logout"
-					><LogOut size="18" /><span class="hidden sm:inline">Log out</span></a
-				>
+				<ProfileDropdown />
 			{/if}
 		</div>
 	</nav>
